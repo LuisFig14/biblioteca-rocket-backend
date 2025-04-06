@@ -1,0 +1,9 @@
+
+CREATE TABLE books (
+    id_book NUMBER(19, 0) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR2(255) NOT NULL,
+    author VARCHAR2(255) NOT NULL,
+    genre VARCHAR2(255),
+    isbn VARCHAR2(255),
+    stock NUMBER(10) NOT NULL
+);
