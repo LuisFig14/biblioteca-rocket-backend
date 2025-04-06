@@ -1,0 +1,8 @@
+CREATE TABLE students (
+
+    id_student NUMBER(19, 0) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    school VARCHAR(100),
+    phone VARCHAR(20)
+
+);
