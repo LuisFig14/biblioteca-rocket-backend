@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BookController {
 
     @Autowired
@@ -39,14 +42,18 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
+    public ResponseEntity<Map<String, String>> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
         boolean updated = bookService.updateBook(id, book);
+
+        Map<String, String> response = new HashMap<>();
+
         if (updated) {
-            return ResponseEntity.ok("Book updated correctly");
+            response.put("message", "Book updated correctly");
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+            response.put("message", "Book not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
 
