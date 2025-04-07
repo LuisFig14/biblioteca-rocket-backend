@@ -11,8 +11,16 @@ public interface BookMapper {
     @Insert("INSERT INTO BOOKS (title, author, genre, isbn, stock) VALUES (#{title}, #{author}, #{genre}, #{isbn}, #{stock})")
     void createBook(Book book);
 
-    @Select("SELECT ID_BOOK AS idBook, TITLE, AUTHOR, GENRE, ISBN, STOCK FROM BOOKS WHERE ID_BOOK = #{idBook}")
-    Book getBookById (@Param("idBook") Long idBook);
+    @Select("SELECT * FROM BOOKS WHERE ID_BOOK = #{idBook}")
+    @Results({
+            @Result(property = "idBook", column = "ID_BOOK"),
+            @Result(property = "title", column = "TITLE"),
+            @Result(property = "author", column = "AUTHOR"),
+            @Result(property = "genre", column = "GENRE"),
+            @Result(property = "isbn", column = "ISBN"),
+            @Result(property = "stock", column = "STOCK")
+    })
+    Book getBookById(Long idBook);
 
     @Select("SELECT * FROM BOOKS")
     @Results({@Result(property = "idBook", column = "ID_BOOK")})
@@ -31,6 +39,7 @@ public interface BookMapper {
 
     @Delete("DELETE FROM BOOKS WHERE ID_BOOK = #{idBook}")
     void deleteBook(Long idBook);
+
 
 
 

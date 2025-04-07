@@ -11,8 +11,15 @@ public interface StudentMapper {
     @Insert("INSERT INTO students (name, school, phone) VALUES (#{name}, #{school}, #{phone})")
     void createStudent(Student student);
 
-    @Select("SELECT ID_STUDENT AS idStudent, NAME, SCHOOL, PHONE FROM STUDENTS WHERE ID_STUDENT = #{idStudent}")
-    Student getStudentById (@Param("idStudent") Long idStudent);
+    @Select("SELECT * FROM STUDENTS WHERE ID_STUDENT = #{idStudent}")
+    @Results({
+            @Result(property = "idStudent", column = "ID_STUDENT"),
+            @Result(property = "name", column = "NAME"),
+            @Result(property = "school", column = "SCHOOL"),
+            @Result(property = "phone", column = "PHONE")
+    })
+    Student getStudentById(Long idStudent);
+
 
     @Select("SELECT * FROM STUDENTS")
     @Results({@Result(property = "idStudent", column = "ID_STUDENT")})
