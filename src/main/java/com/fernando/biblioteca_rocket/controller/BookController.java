@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +17,11 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 public class BookController {
 
+    // Injecting the BookService using @Autowired
     @Autowired
     BookService bookService;
 
-    //Create book
+    //Create a new book
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         Book bookCreated = bookService.createBook(book);
@@ -36,12 +36,14 @@ public class BookController {
                 .orElseGet(()-> ResponseEntity.notFound().build());
     }
 
+    //Get all books
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
+    //update the book
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
         boolean updated = bookService.updateBook(id, book);
@@ -57,6 +59,7 @@ public class BookController {
         }
     }
 
+    //delete book
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable("id") Long id) {
         boolean deleted = bookService.deleteBook(id);
@@ -67,8 +70,6 @@ public class BookController {
         }
     }
 
-
-
-
+    //All controller methods return a ResponseEntity to provide HTTP status codes and body.
 
 }

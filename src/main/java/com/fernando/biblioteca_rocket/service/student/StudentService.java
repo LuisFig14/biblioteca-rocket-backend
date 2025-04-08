@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+//Service business logic
 @Service
 public class StudentService {
 
+    // Injecting the StudentMapper using @Autowired
     @Autowired
     StudentMapper studentMapper;
 

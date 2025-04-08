@@ -40,9 +40,4 @@ public interface BookMapper {
     @Delete("DELETE FROM BOOKS WHERE ID_BOOK = #{idBook}")
     void deleteBook(Long idBook);
 
-
-
-
-
-
 }

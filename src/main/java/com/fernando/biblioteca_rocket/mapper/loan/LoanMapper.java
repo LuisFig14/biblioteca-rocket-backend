@@ -1,7 +1,6 @@
 package com.fernando.biblioteca_rocket.mapper.loan;
 
 import com.fernando.biblioteca_rocket.model.loan.Loan;
-import com.fernando.biblioteca_rocket.model.loan.LoanDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

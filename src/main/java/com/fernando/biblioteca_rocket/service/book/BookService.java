@@ -8,17 +8,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
+//Service business logic
 @Service
 public class BookService {
 
+    // Injecting the BookMapper using @Autowired
     @Autowired
     BookMapper bookMapper;
+
 
     public Book createBook(Book book) {
         bookMapper.createBook(book);
         return book;
     }
 
+    //
     public Optional<Book> getBookById(Long idBook){
         return Optional.ofNullable(bookMapper.getBookById(idBook));
     }

@@ -17,16 +17,18 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
-
+    // Injecting the StudentService using @Autowired
     @Autowired
     StudentService studentService;
 
+    //create a new student
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student){
         Student studentCreated = studentService.createStudent(student);
         return new ResponseEntity<>(studentCreated, HttpStatus.CREATED);
     }
 
+    //get a student by id
     @GetMapping("/{idStudent}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long idStudent){
         Optional<Student> student = studentService.getStudentById(idStudent);
@@ -34,12 +36,14 @@ public class StudentController {
                 .orElseGet(()-> ResponseEntity.notFound().build());
     }
 
+    //get all students
     @GetMapping
     public ResponseEntity<List<Student>> getAllBooks() {
         List<Student> books = studentService.getAllStudents();
         return ResponseEntity.ok(books);
     }
 
+    //update the students
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateStudent(@PathVariable Long id, @RequestBody Student student) {
         studentService.updateStudent(id, student);
@@ -48,6 +52,7 @@ public class StudentController {
         return ResponseEntity.ok(response);
     }
 
+    //delete the student
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = studentService.deleteStudent(id);
@@ -58,5 +63,6 @@ public class StudentController {
         }
     }
 
+    //All controller methods return a ResponseEntity to provide HTTP status codes and body.
 
 }
