@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
 
@@ -38,22 +41,20 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateStudent(@PathVariable("id") Long id, @RequestBody Student student) {
-        boolean updated = studentService.updateStudent(id, student);
-        if (updated) {
-            return ResponseEntity.ok("Student updated correctly");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found");
-        }
+    public ResponseEntity<Map<String, String>> updateStudent(@PathVariable Long id, @RequestBody Student student) {
+        studentService.updateStudent(id, student);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Student updated correctly");
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = studentService.deleteStudent(id);
-        if (deleted) {
-            return ResponseEntity.ok("Book deleted");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+        if (deleted){
+            return ResponseEntity.ok("Student deleted");
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found");
         }
     }
 
